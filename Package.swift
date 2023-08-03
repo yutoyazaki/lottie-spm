@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
   name: "Lottie",
   platforms: [.iOS("11.0"), .macOS("10.11"), .tvOS("11.0")],
-  products: [.library(name: "Lottie", targets: ["Lottie", "_LottieStub"])],
+  products: [.library(name: "Lottie", targets: ["_LottieStub"])],
   targets: [
     .binaryTarget(
       name: "Lottie",
@@ -17,8 +17,8 @@ let package = Package(
     // Lottie from being embedded in the app product, causing the app to crash when
     // ran on a physical device. As a workaround, we can include a stub target
     // with at least one source file.
-    .target(name: "_LottieStub"),
-    
+    .target(name: "_LottieStub", dependencies: [.target(name: "Lottie")], path: "./_LottieStub"),
+
     .testTarget(
       name: "LottieTests",
       dependencies: ["Lottie"],
